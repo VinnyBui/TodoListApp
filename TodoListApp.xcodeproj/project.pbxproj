@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A0F92842BBFE11700819E72 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F92822BBFE11700819E72 /* Database.xcdatamodeld */; };
 		994C10512B9EC60100CAC066 /* TodoListAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994C10502B9EC60100CAC066 /* TodoListAppApp.swift */; };
 		994C10532B9EC60100CAC066 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994C10522B9EC60100CAC066 /* ContentView.swift */; };
 		994C10552B9EC60400CAC066 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 994C10542B9EC60400CAC066 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A0F92832BBFE11700819E72 /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
 		994C104D2B9EC60100CAC066 /* TodoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		994C10502B9EC60100CAC066 /* TodoListAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListAppApp.swift; sourceTree = "<group>"; };
 		994C10522B9EC60100CAC066 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		994C104F2B9EC60100CAC066 /* TodoListApp */ = {
 			isa = PBXGroup;
 			children = (
+				7A0F92822BBFE11700819E72 /* Database.xcdatamodeld */,
 				994C10502B9EC60100CAC066 /* TodoListAppApp.swift */,
 				994C10522B9EC60100CAC066 /* ContentView.swift */,
 				994C10542B9EC60400CAC066 /* Assets.xcassets */,
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				994C10532B9EC60100CAC066 /* ContentView.swift in Sources */,
+				7A0F92842BBFE11700819E72 /* Database.xcdatamodeld in Sources */,
 				994C10512B9EC60100CAC066 /* TodoListAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -582,6 +586,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7A0F92822BBFE11700819E72 /* Database.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7A0F92832BBFE11700819E72 /* Database.xcdatamodel */,
+			);
+			currentVersion = 7A0F92832BBFE11700819E72 /* Database.xcdatamodel */;
+			name = Database.xcdatamodeld;
+			path = /Users/csuftitan/Desktop/TodoListApp/TodoListApp/Database.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 994C10452B9EC60100CAC066 /* Project object */;
 }

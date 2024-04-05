@@ -1,17 +1,16 @@
-//
-//  TodoListAppApp.swift
-//  TodoListApp
-//
-//  Created by Vinh Bui on 3/10/24.
-//
-
 import SwiftUI
+import CoreData
 
 @main
 struct TodoListAppApp: App {
+    // Instantiate the persistence controller
+    let persistenceController = PersistenceController.shared
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                // Provide the managed object context to the SwiftUI environment
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
@@ -23,7 +22,7 @@ class PersistenceController {
     let container: NSPersistentContainer
 
     init() {
-        container = NSPersistentContainer(name: "Database")
+        container = NSPersistentContainer(name: "Database") 
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")

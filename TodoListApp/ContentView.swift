@@ -21,6 +21,8 @@ struct ContentView: View {
     @State private var newTaskDueDate = Date()
     @State private var showingAddTaskSheet = false
 
+    @State private var selectedTask: Task?
+    
     var body: some View {
         NavigationView {
             List {
@@ -32,9 +34,10 @@ struct ContentView: View {
                         Button("Details") {
                             // Details view navigation placeholder
                         }
+                        .padding(.leading)
                         // Edit button
                         Button("Edit") {
-                            // Edit functionality placeholder
+                            selectedTask = task
                         }
                         .padding(.leading)
                         // Delete button
@@ -78,9 +81,55 @@ struct ContentView: View {
                     }
                 }
             }
+            .sheet(item: $selectedTask) { task in // Use item instead of isPresented for sheet
+            // Sheet for adding or editing a task
+                NavigationView {
+                    TaskForm(task: task) {title, description, dueDate in editTask(title: title, description: description, dueDate: dueDate, task: task)
+                        selectedTask = nil
+                        }
+                        .navigationTitle("Edit Task")
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button("Cancel") {
+                                    selectedTask = nil
+                                }
+                            }
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Save") {
+                                }
+                            }
+                    }
+                }
+            }
         }
     }
     
+    struct TaskForm: View {
+            @State private var title: String
+            @State private var description: String
+            @State private var dueDate: Date
+
+            let onSave: (String, String, Date) -> Void
+
+            init(task: Task? = nil, onSave: @escaping (String, String, Date) -> Void) {
+                _title = State(initialValue: task?.title ?? "")
+                _description = State(initialValue: task?.taskDescription ?? "")
+                _dueDate = State(initialValue: task?.dueDate ?? Date())
+                self.onSave = onSave
+            }
+
+            var body: some View {
+                Form {
+                    TextField("Title", text: $title)
+                    TextField("Description", text: $description)
+                    DatePicker("Due Date", selection: $dueDate, displayedComponents: .date)
+                }
+                .onDisappear {
+                    onSave(title, description, dueDate)
+                }
+            }
+        }
+
     private func addTask() {
         let newTask = Task(context: viewContext)
         newTask.title = newTaskTitle
@@ -109,6 +158,20 @@ struct ContentView: View {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
+        }
+    }
+    
+    private func editTask(title: String, description: String, dueDate: Date, task: Task){
+        task.title = title
+        task.taskDescription = description
+        task.dueDate = dueDate
+        
+        do{
+            try viewContext.save()
+
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
 }

@@ -41,12 +41,12 @@ struct ContentView: View {
                         }
                         .padding(.leading)
                         // Delete button
-                        Button("Delete") {
-                            deleteTask(task: task)
-                        }
-                        .foregroundColor(.red)
-                        .padding(.leading)
                     }
+                    Button("Delete") {
+                        deleteTask(task: task)
+                    }
+                    .foregroundColor(.red)
+                    .padding(.leading)
                 }
             }
             .navigationTitle("Tasks")
@@ -81,23 +81,18 @@ struct ContentView: View {
                     }
                 }
             }
-            .sheet(item: $selectedTask) { task in // Use item instead of isPresented for sheet
-            // Sheet for adding or editing a task
+            .sheet(item: $selectedTask) { task in
                 NavigationView {
                     TaskForm(task: task) {title, description, dueDate in editTask(title: title, description: description, dueDate: dueDate, task: task)
                         selectedTask = nil
+                    }
+                    .navigationTitle("Edit Task")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Cancel") {
+                                selectedTask = nil
+                            }
                         }
-                        .navigationTitle("Edit Task")
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Cancel") {
-                                    selectedTask = nil
-                                }
-                            }
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Button("Save") {
-                                }
-                            }
                     }
                 }
             }
@@ -124,10 +119,19 @@ struct ContentView: View {
                     TextField("Description", text: $description)
                     DatePicker("Due Date", selection: $dueDate, displayedComponents: .date)
                 }
-                .onDisappear {
-                    onSave(title, description, dueDate)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Save") {
+                            saveChanges()
+                        }
+                    }
                 }
             }
+        
+        private func saveChanges() {
+            onSave(title, description, dueDate)
+            }
+        
         }
 
     private func addTask() {
@@ -174,5 +178,6 @@ struct ContentView: View {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
+    
 }
 
